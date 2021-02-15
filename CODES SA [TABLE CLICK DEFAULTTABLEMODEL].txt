@@ -1,0 +1,38 @@
+Codes sa [TABLE CLICK DEFAULTTABLEMODEL]
+
+
+  private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+      DefaultTableModel model = (DefaultTableModel)jTable1.getModel();
+      int selectedindex = jTable1.getSelectedRow();
+      
+      txtname.setText(model.getValueAt(selectedindex, 1).toString());
+      txtcontact.setText(model.getValueAt(selectedindex, 2).toString());
+      txtsalary.setText(model.getValueAt(selectedindex, 3).toString());
+     
+    } 
+
+===================================================================================
+
+ try {
+            int row = jTable1.getSelectedRow();
+            String Table_click = (jTable1.getModel().getValueAt(row, 0).toString());
+            String sql = "SELECT * FROM tbl_crud WHERE id='" + Table_click + "' ";
+            pst = conn.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                txt_id.setText(rs.getString("id"));
+                txt_fullname.setText(rs.getString("fullname"));
+                txt_address.setText(rs.getString("address"));
+                txt_contact.setText(rs.getString("contact"));
+                txt_email.setText(rs.getString("email"));
+                cmb_job.setSelectedItem(rs.getString("job"));
+                String gen = rs.getString("gender");
+                if ("Male".equals(gen)) {
+                    radio_male.setSelected(true);
+                } else if ("Female".equals(gen)) {
+                    radio_female.setSelected(true);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, e);
+        }
